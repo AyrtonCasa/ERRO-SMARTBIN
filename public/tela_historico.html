@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Bin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>
+    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="menu">
+            <h3>Bairros</h3>
+            <ul class="menu_list">
+                <a href="../html/tela_dashboard.html">
+                    <li>Todos os bairros</li>
+                </a>
+                <a href="../html/boa_vista.html">
+                    <li>Boa Vista</li>
+                </a>
+                <a href="../html/jardim_paulista.html">
+                    <li>Jardim Paulista</li>
+                </a>
+                <a href="../html/jabaquara.html">
+                    <li>Jabaquara</li>
+                </a>
+                <a href="../html/santa_cecilia.html">
+                    <li>Santa Cecília</li>
+                </a>
+                <a href="../html/santo_amaro.html">
+                    <li>Santo Amaro</li>
+                </a>
+            </ul>
+            <h3>Configurações</h3>
+            <ul class="menu_list">
+                <a href="tela_cadastro_lixeira.html">
+                    <li>Adicionar lixeira</li>
+                </a>
+                <a href="tela_cadastro_logado.html">
+                    <li>Adicionar Usuário</li>
+                </a>
+                <a href="Visualizacao_perfil.html">
+                    <li>Usuário</li>
+                </a>
+            </ul>
+
+            <a class="logOut" href="tela_inicio.html">Sair <img src="../img/logOut.png" alt=""></a>
+
+            <div class="foto_user_box">
+                <a href="Visualizacao_perfil.html"><img src="../img/perfil.png" alt=""></a> 
+                <h4>Fernando Duarte</h4>
+                <h5>Administrador</h5>
+            </div>
+        </div>
+        <div class="conteudo">
+
+            <h1>Informações</h1>
+            <img class="logo" src="img/logo_smartBin-removebg-preview.png" alt="">
+
+            <div class="info_historico_box">
+                <h2>Lixeira 1</h2>
+                <h3>Rua: Consolação, 101, Boa vista</h3>
+                <h3>Nível: <span id="status">Baixo</span></h3>
+            </div>
+
+            <h1 class="">Gráficos:</h1>
+            <div class="grafico_historico_box">
+                <canvas id="chave"></canvas>
+            </div>
+
+            <h1>Histórico</h1>
+            <div class="card_historico_box">
+                <div>
+                    <p>Nivel: Baixo - Hora: 08:19:44 - Data: 20/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Cheia - Hora: 19:20:04 - Data: 19/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Média - Hora: 06:07:14 - Data: 19/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Baixo - Hora: 08:19:44 - Data: 19/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Cheia - Hora: 17:15:08 - Data: 19/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Média - Hora: 07:16:18 - Data: 18/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Baixo - Hora: 07:19:32 - Data: 17/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Cheia - Hora: 20:19:15 - Data: 17/04/2024</p>
+                </div>
+                <div>
+                    <p>Nivel: Média - Hora: 06:07:14 - Data: 16/04/2024</p>
+                </div>
+
+            </div>
+        </div>
+
+        <h1 class="titulo_grafico">Gráficos:</h1>
+        <div class="grafico_box">
+            <canvas id="myChart"></canvas>
+            <canvas id="myChart2"></canvas>
+        </div>
+
+    </div>
+
+    </div>
+</body>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+
+        <div class="area_edit">
+            <h3>Lixeira 1</h3>
+            <a href="#" id="EditModal"><i class="fa-solid fa-pen"></i></a>
+        </div>
+        <!-- <i class="fa-solid fa-pen"></i> -->
+
+
+        <i style="color: red;" class="fa-solid fa-dumpster"></i>
+        <h4>Rua: Consolação, 101, Boa vista</h4>
+        <h4>Nível: <span style="color: red;">Alto</span></h4>
+        <h3>Horarios</h3>
+        <div>
+            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
+            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+        </div>
+        <div class="btn btn_historico">
+            <a href="tela_historico.html">
+                <button class="botao">Ver Histórico</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="ModalEdicao" class="modal">
+    <div class="modal-content">
+        <span class="closeEdit">&times;</span>
+        <h3 contenteditable="true">Lixeira 1</h3>
+        <i style="color: red;" class="fa-solid fa-dumpster"></i>
+        <h4 contenteditable="true">Rua: Consolação, 101, Boa vista</h4>
+        <h4>Nível: <span style="color: red;">Alto</span></h4>
+        <h3>Horarios</h3>
+        <div>
+            <h5>Nivel: Médio - 09:45:58 do dia 03/04/24 até 15:44:08 do dia 03/04/24</h5>
+            <h5>Nivel: Alto - 15:44:08 do dia 03/04/24 até 20:22:19 do dia 03/04/24</h5>
+
+        </div>
+        <div class="btn">
+            <button class="botao" id="saveButton">salvar</button>
+        </div>
+    </div>
+</div>
+
+</html>
+
+<script>
+
+
+
+
+    var contextoChave = document.getElementById('chave').getContext('2d');
+    contextoChave.canvas.width = 1000;
+    contextoChave.canvas.height = 300;
+    var chave = new Chart(
+        contextoChave,
+        {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Chave',
+                    type: 'line',
+                    borderColor: ['#297011'],
+                    backgroundColor: ['#297011']
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        distribution: 'series',
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            // coloca legenda no eixo Y
+                            //labelString: 'Chave'
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                animation: {
+                    duration: 0
+                }
+            }
+        }
+    );
+
+    var paginacao = {};
+    var tempo = {};
+    function obterDados(grafico, endpoint) {
+        var http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:3300/sensores/' + endpoint, false);
+        http.send(null);
+        var valores = JSON.parse(http.responseText);
+        if (paginacao[endpoint] == null) {
+            paginacao[endpoint] = 0;
+        }
+        if (tempo[endpoint] == null) {
+            tempo[endpoint] = 0;
+        }
+        // Exibir à partir do último elemento exibido anteriormente
+        var ultimaPaginacao = paginacao[endpoint];
+        paginacao[endpoint] = valores.length;
+        var valores = valores.slice(ultimaPaginacao);
+        valores.forEach((valor) => {
+            //Máximo de 60 itens exibidos no gráfico
+            if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
+                grafico.data.labels.shift();
+                grafico.data.datasets[0].data.shift();
+            }
+
+            grafico.data.labels.push(tempo[endpoint]++);
+            grafico.data.datasets[0].data.push(parseFloat(valor));
+            grafico.update();
+
+            verificarDado(parseFloat(valor));
+        })
+    }
+
+    setInterval(() => {
+        obterDados(chave, 'chave');
+    }, 1000);
+
+    function verificarDado(valor) {
+        const spanElemento = document.getElementById('status');
+        const spanElemento2 = document.getElementById('status2');
+
+        if (valor === 0) {
+
+            spanElemento.textContent = 'Baixo';
+            spanElemento.style.color = 'black';
+
+
+        } else if (valor === 1) {
+            spanElemento.style.color = 'red'
+            spanElemento.textContent = 'Alto';
+        }
+    }
+
+    /*
+    // Chame a função verificarDado com o valor recebido
+    function obterDados(grafico, endpoint) {
+        var http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:3300/sensores/' + endpoint, false);
+        http.send(null);
+        var valores = JSON.parse(http.responseText);
+        
+        if (paginacao[endpoint] == null) {
+            paginacao[endpoint] = 0;
+        }
+        if (tempo[endpoint] == null) {
+            tempo[endpoint] = 0;
+        }
+        
+        var ultimaPaginacao = paginacao[endpoint];
+        paginacao[endpoint] = valores.length;
+        var valores = valores.slice(ultimaPaginacao);
+        
+        valores.forEach((valor) => {
+            //Máximo de 60 itens exibidos no gráfico
+            if (grafico.data.labels.length == 10 && grafico.data.datasets[0].data.length == 10) {
+                grafico.data.labels.shift();
+                grafico.data.datasets[0].data.shift();
+            }
+    
+            grafico.data.labels.push(tempo[endpoint]++);
+            grafico.data.datasets[0].data.push(parseFloat(valor));
+            grafico.update();
+    
+             // chame a função verificarDado com o valor
+        })
+    }
+    
+    
+    
+    
+    
+        /*
+        const ctx = document.getElementById('myChart');
+    
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [''],
+                datasets: [{
+                    label: 'Lixeira nivel médio',
+                    data: [1],
+                    borderWidth: 1,
+                    backgroundColor: 'red'
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    
+        */
+</script>

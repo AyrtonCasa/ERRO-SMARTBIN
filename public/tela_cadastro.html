@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/tela_cadastro.css">
+  <title>Tela de cadastro</title>
+</head>
+
+<body>
+  <div id="pai" class="register-container">
+
+    <h1>Cadastro</h1>
+
+    <label style="display: inline-block;" name="usuario" for="usuario">Tipo de usuário:</label>
+
+    <select style="margin-bottom: 4%; margin-left: 6px ;margin-top: 10px; width: 30%;" name="usuario"
+      id="select_usuario" onchange="mudar()">
+
+      <option value="Tipo de usuário:" disabled selected>Tipo de usuário</option>
+      <option value="Empresa">Empresa</option>
+        <option value="Administrador">Administrador</option>
+      <!-- <option value="Comum">Comum</option> -->
+    </select>
+
+    <div id="divcadastro">
+
+    </div>
+    <form class="register-form">
+
+      <a class="jatemlogin" href="tela_login.html">
+        <span class="jatemlogin">Já tem um login? Entre aqui</span>
+      </a>
+      <!-- <button type="button" onclick="validarFormulario()">Cadastrar</button> -->
+    </form>
+
+  </div>
+
+  <script>
+
+    // Igual eu disse, se fosse uma função para validar só nesse formulário em especifico, provavelmente daria certo, mas ele dá um alert para verificar e em seguida já roda o innerHTML, porque ele sobrepõe o conteúdo inserido, é meio que automático
+
+    // Não sei real, se essa lógica de usar innerHTML seja a mais correta.
+
+    function mudar() {
+      var select = select_usuario.value;
+
+      if (select == 'Empresa') {
+        divcadastro.innerHTML = `<form class="register-form">
+          <label for="Nome">Nome:</label>
+          <input type="text" id="inp_nome" name="nome"><br>
+          
+          <label for="CNPJ">CNPJ:</label>
+          <input type="text" id="inp_cnpj" name="cnpj"><br>
+          
+          <label for="Razão Social">Razão Social:</label>
+          <input type="text" id="inp_razao" name="razao"><br> <!-- Coloquei "text" para verificar quantos caracteres tem e transformo para numero na verificação -->
+          
+          <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+          <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+          
+          
+          <button type="menu" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" onclick="cadastrarEmpresa()">Cadastrar</button>
+          </form>
+          `;
+
+      } else if (select == 'Administrador') {
+        divcadastro.innerHTML = `<form class="register-form">
+        <label for="Nome">Nome:</label>
+        <input type="text" id="inp_nome" name="nome"><br>
+  
+        <label for="CPF">CPF:</label>
+        <input type="text" id="inp_cpf" name="cpf"><br>
+  
+        <label for="CPF">CNPJ:</label>
+        <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+        <label for="email">Email:</label>
+        <input type="text" id="inp_email" name="email"><br>
+  
+        <label for="senha">Senha:</label>
+        <input type="password" id="inp_password" name="senha"><br>
+  
+        <label for="telefone">Telefone:</label>
+        <input type="number" id="inp_tel" name="telefone"><br>
+  
+        <label for="dataNascimento">Data de nascimento:</label>
+        <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+        <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+        <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+        <button  onclick="cadastrarAdm()"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>`;
+
+      } 
+    }
+
+    function adm() {
+      
+      var inputCnpj = inp_cnpj.value;
+
+      var termosCheckbox = document.getElementById("termos");
+
+      var char14CNPJ = inputCnpj.length;
+
+      inputCnpj = Number(inp_cnpj.value);
+
+      if (inputNome == "" || inputCnpj == "" || !termosCheckbox.checked || char14CNPJ < 14) {
+        alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+        return false;
+      } else {
+        pai.innerHTML = `<h1>Cadastro de Administrador</h1> 
+  
+  <div id="divcadastro">
+      <form class="register-form">
+  <label for="Nome">Nome:</label>
+  <input type="text" id="inp_nome" name="nome"><br>
+  
+  <label for="CPF">CPF:</label>
+  <input type="text" id="inp_cpf" name="cpf"><br>   
+  
+  <label for="CPF">CNPJ:</label>
+  <input type="text" id="inp_cnpj" name="cnpj"><br>
+  
+  <label for="email">Email:</label>
+  <input type="text" id="inp_email" name="email"><br>
+  
+  <label for="senha">Senha:</label>
+  <input type="password" id="inp_password" name="senha"><br>
+  
+  <label for="telefone">Telefone:</label>
+  <input type="number" id="inp_tel" name="telefone"><br>
+  
+  <label for="dataNascimento">Data de nascimento:</label>
+  <input type="date" id="inp_Data" name="dataNascimento"><br>
+  
+  <label style="display: inline-block;" for="termoDeUso">Termos de uso</label>
+  <input style="width: 5%; margin-top: 3%;" type="checkbox" id="termos" name="Termos de uso"><br>
+  
+  <button  onclick="validarFormulario(event)"  type="submit" style="width: 103%; margin-bottom: 3%; margin-top: 3%; border-radius: 5%;" href="index.html">Cadastrar</button>
+  </div>
+  </form>
+  `
+      };
+    }
+
+    function validarFormulario(event) {
+    event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+
+    var inputNome = inp_nome.value;
+    var inputCpf = inp_cpf.value;
+    var inputCnpj = inp_cnpj.value;
+    var inputEmail = inp_email.value;
+    var inputPassword = inp_password.value;
+    var inputTel = inp_tel.value;
+    var inputData = inp_Data.value;
+    var termosCheckbox = document.getElementById("termos");
+
+    var indice_arroba = inputEmail.indexOf('@'); 
+    var indice_com = inputEmail.indexOf('.com');
+
+    if (inputNome.trim() === "" || inputCpf.length < 11 || inputCnpj.length < 14 || inputEmail === "" || inputPassword === "" || isNaN(inputTel) || !termosCheckbox.checked || indice_arroba < 0 || indice_com < 0) {
+        alert("Por favor, preencha todos os campos corretamente e aceite os termos de uso.");
+        return false;
+    } else {
+        cadastrar()
+        alert("Formulário enviado com sucesso!");
+        return true;
+    }
+}
+
+function cadastrarEmpresa() {
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = inp_nome.value;
+    var cnpjVar = inp_cnpj.value;
+    var razaoVar = inp_razao.value;
+
+    var char14CNPJ = inp_cnpj.length;
+
+    if (
+      razao == "" ||
+      nomeVar == "" ||
+      cnpj == "" ||
+      char14CNPJ != 14
+    ) {
+
+      alert("Preencha todos os campos adequadamente. Nenhum campo deve ser vazio e o cnpj deve conter 14 dígitos.")
+
+    } else {
+      
+      // Enviando o valor da nova input
+    fetch("/usuarios/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        cnpjServer: cnpjVar,
+        razaoServer: razaoVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Cadastro realizado com sucesso! Redirecionando para tela de Login...")
+            
+
+          setTimeout(() => {
+            window.location = "tela_login.html";
+          }, "2000");
+
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+      
+  }
+    }
+
+    
+  
+  
+
+  function cadastrarAdm() {
+  
+  //Recupere o valor da nova input pelo nome do id
+  // Agora vá para o método fetch logo abaixo
+  var nomeVar = nome_input.value;
+  var emailVar = email_input.value;
+  var senhaVar = senha_input.value;
+  var confirmacaoSenhaVar = confirmacao_senha_input.value;
+  var empresaVar = listaEmpresas.value
+  if (
+  nomeVar == "" ||
+  emailVar == "" ||
+  senhaVar == "" ||
+  confirmacaoSenhaVar == "" ||
+  empresaVar == ""
+  ) {
+  
+  mensagem_erro.innerHTML =
+    "(Mensagem de erro para todos os campos em branco)";
+  
+  finalizarAguardar();
+  return false;
+  } else {
+  setInterval(sumirMensagem, 5000);
+  }
+  
+  // Enviando o valor da nova input
+  fetch("/usuarios/cadastrarADM", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    // crie um atributo que recebe o valor recuperado aqui
+    // Agora vá para o arquivo routes/usuario.js
+    nomeServer: nomeVar,
+    emailServer: emailVar,
+    senhaServer: senhaVar,
+    empresaServer: empresaVar
+  }),
+  })
+  .then(function (resposta) {
+    console.log("resposta: ", resposta);
+  
+    if (resposta.ok) {
+      cardErro.style.display = "block";
+  
+      mensagem_erro.innerHTML =
+        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+  
+      setTimeout(() => {
+        window.location = "tela_login.html";
+      }, "2000");
+  
+      limparFormulario();
+      finalizarAguardar();
+    } else {
+      throw "Houve um erro ao tentar realizar o cadastro!";
+    }
+  })
+  .catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+    finalizarAguardar();
+  });
+  
+  return false;
+  }
+  </script>
+</body>
+
+</html>
